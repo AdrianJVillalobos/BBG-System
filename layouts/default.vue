@@ -1,0 +1,19 @@
+<template>
+<v-app>
+    <index />
+    <Header /> 
+    <Nuxt />
+
+    </v-app>
+</template>
+
+<script>
+    import Header from '@/components/Header'
+
+    export default {
+     components: {
+            Header
+     }
+  }
+</script>
+
