@@ -4,7 +4,7 @@
     <v-main class="#16aac4">
       <v-container>
         <v-row>
-          <v-col cols="2">
+          <v-col >
             <v-sheet rounded="lg">
                <v-card
                   class="mx-20"

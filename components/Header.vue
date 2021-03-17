@@ -66,8 +66,9 @@ export default {
 
 <style scoped>
 
-.btn-link { 
-   text-decoration: none;
+.btn-link a { 
+   text-decoration: none !important;
+  color: aliceblue !important;
   
 }
 
