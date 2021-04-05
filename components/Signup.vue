@@ -19,10 +19,10 @@
                           </v-btn>
                         </div>
                         <h4 class="text-center mt-4">Ensure your email for registration</h4>
-                        <v-form @submit.prevent="handleSubmit">
+                        <v-form @submit.prevent="handleLogin">
                           <v-text-field
                             label="Email"
-                           
+                            v-model="email"
                             prepend-icon="mdi-email"
                             type="text"
                             color="teal accent-3"
@@ -31,14 +31,14 @@
                           <v-text-field
                             id="password"
                             label="Password"
-                            
+                            v-model="password"
                             prepend-icon="mdi-lock"
                             type="password"
                             color="teal accent-3"
 
                           />
                           <div class="text-center my-3">
-                            <v-btn rounded color="teal accent-3" dark>SIGN IN</v-btn>
+                            <v-btn type="submit" rounded color="teal accent-3" dark>SIGN IN</v-btn>
                           </div>
                         </v-form>
                         <h4 class="text-center mt-4">Forgot your password ?</h4>
@@ -83,7 +83,7 @@
                           </v-btn>
                         </div>
                         <h4 class="text-center mt-4">Ensure your email for registration</h4>
-                        <v-form @submit.prevent="handleSubmit">
+                        <v-form @submit.prevent="handleRegister">
                           <v-text-field
                             label="Name"
                             v-model="displayName"
@@ -109,7 +109,7 @@
                           />
                           <div class="error">{{error}}</div>
                           <div class="text-center my-3">
-                            <v-btn rounded color="teal accent-3" dark>SIGN UP</v-btn>
+                            <v-btn type="submit" rounded color="teal accent-3" dark>SIGN UP</v-btn>
                           </div> 
                         </v-form>
                       </v-card-text>
@@ -128,26 +128,32 @@
 
 <script>
 import useSignup from '../composable/useSignup'
+import userLogin from '../composable/userLogin'
 import '../plugins/installCompositionApi'
 import {ref} from "@vue/composition-api"
 
 export default {
   setup() {
     const { error, signup } = useSignup()
+    const { loginError, signin, response } = userLogin()
 
 
     const displayName = ref('')
     const email = ref('')
     const password = ref('')
-    //const emailIn = ref('')
-    //const passwordIn = ref('')  
 
-    const handleSubmit = async () => {
+    const handleRegister = async () => {
       await signup(email.value, password.value, displayName.value)
-      console.log('user signed up')
     }
 
-    return {displayName, email, password, handleSubmit, error}
+    const handleLogin = async () => {
+      await signin(email.value, password.value)
+      if(response.value) {
+        location.replace('/dashboard')
+      }
+    }
+
+    return {displayName, email, password, handleRegister, handleLogin, error, loginError, response}
 
   },
   data: () => ({
