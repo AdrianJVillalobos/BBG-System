@@ -3,9 +3,9 @@
 
     <v-main class="#16aac4">
       <v-container>
-        <v-row>
-          <v-col >
-            <v-sheet rounded="lg">
+        <v-row >
+          <v-flex class="mt-2" xs12 md3 sm3>
+            <v-shee8 rounded="lg">
                <v-card
                   class="mx-20"
                   max-width="300"
@@ -31,21 +31,13 @@
                     </v-list-item-group>
                   </v-list>
                 </v-card>
-            </v-sheet>
-          </v-col>
+            </v-shee8>
+          </v-flex>
 
-          <v-row  
-            v-for="n in 3"
-            :key="n"
-            class="mx-2 my-0"
-            row="2"
-          >
-            <div >
+          
+          <v-flex class="mx-2 my-0" xs12 md8 sm8>
               <loadingCards />
-              
-              <!-- content -->
-            </div>
-          </v-row>
+          </v-flex>
         </v-row>
       </v-container>
     </v-main>

@@ -1,9 +1,10 @@
 <template>
-  <v-main class="pa-0">
+  <v-container class="card-grid pa-0">
+  <v-flex xs12 md4 sm6 v-for="patient in patients" :key="patient.name"
+   style="max-width: 300px;">
     <v-card
-      v-for="patient in patients" :key="patient.name"
       :loading="loading"
-      class="mx-auto my-3 "
+      class="mx-2 my-3 "
       max-width="300"
     >
       <template slot="progress">
@@ -62,8 +63,9 @@
         </v-btn>
       </v-card-actions>
     </v-card>
+  </v-flex>
 
-  </v-main>
+  </v-container>
 </template>
 
 <script>
@@ -92,4 +94,15 @@
     },
   }
 </script>
+
+<style scoped>
+  
+  .card-grid {
+    flex: none;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    justify-content: center;
+  }  
+</style>
 
