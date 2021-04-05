@@ -1,74 +1,89 @@
 <template>
-  <v-card
-    :loading="loading"
-    class="mx-auto my-3 "
-    max-width="300"
-  >
-    <template slot="progress">
-      <v-progress-linear
-        color="green"
-        height="5"
-        indeterminate
-      ></v-progress-linear>
-    </template>
+  <v-main class="pa-0">
+    <v-card
+      v-for="patient in patients" :key="patient.name"
+      :loading="loading"
+      class="mx-auto my-3 "
+      max-width="300"
+    >
+      <template slot="progress">
+        <v-progress-linear
+          color="teal lighten-1"
+          height="5"
+          indeterminate
+        ></v-progress-linear>
+      </template>
 
-    <v-card-title>Patient full name</v-card-title>
+      <v-card-title>{{ patient.name }}</v-card-title>
 
-    <v-card-text>
-      <v-row
-        align="center"
-        class="mx-0"
-      >
+      <v-card-text>
+        <v-row 
+          align="center"
+          class="mx-0"
+        >
+        
+        </v-row>
+
+        <div class="my-4 subtitle-2" >
+          {{ patient.clinic }}
+        </div>
+
+        <div class="my-2">{{ patient.diagnosis }}</div>
+
+      </v-card-text>
+
+      <v-divider class="mx-4"></v-divider>
+
       
-      </v-row>
 
-      <div class="my-4 subtitle-2" >
-        Clinic
-      </div>
+      <v-card-text>
+        <v-chip-group
+          v-model="selection"
+          small
+          column
+        >
+          <v-chip 
+              small
+              class="right"
+              :color="`${patient.status}`"
+              :class="`${patient.status} white--text my-2 caption`">
+              {{ patient.status }}
+              </v-chip>
+        </v-chip-group>
+      </v-card-text>
 
-      <div class="my-2">Diagnosis: COVID-19</div>
+      <v-card-actions>
+        <v-btn
+          color="teal lighten-1"
+          text
+          @click="Submit"
+        >
+          Submit
+        </v-btn>
+      </v-card-actions>
+    </v-card>
 
-    </v-card-text>
-
-    <v-divider class="mx-4"></v-divider>
-
-    <v-card-title>Color code</v-card-title>
-
-    <v-card-text>
-      <v-chip-group
-        v-model="selection"
-        active-class="error white--text"
-        column
-      >
-        <v-chip>Priority #1</v-chip>
-
-        <v-chip>Priority #2</v-chip>
-
-        <v-chip>Priority #3</v-chip>
-
-      </v-chip-group>
-    </v-card-text>
-
-    <v-card-actions>
-      <v-btn
-        color="green lighten-2"
-        text
-        @click="Submit"
-      >
-        Submit
-      </v-btn>
-    </v-card-actions>
-  </v-card>
-
-  
+  </v-main>
 </template>
 
 <script>
   export default {
-    data: () => ({
-      loading: false,
-      selection: 1,
-    }),
+    // data: () => ({
+    //   loading: false,
+    //   selection: 1,
+    // }),
+    data() {
+    return {
+      patients: [
+        { name: 'María Cárdenas', clinic: 'Clínica: Sagrada Familia', diagnosis: 'Diagnóstico: Extrasístole Ventricular', status: 'regular'},
+        { name: 'Ernesto Gotera', clinic: 'Clínica: Paraíso', diagnosis: 'Diagnóstico: Sinusitis ', status: 'checked'},
+        { name: 'Ronald Blanco', clinic: 'Policlínica: Maracaibo', diagnosis: 'Diagnóstico: Pancitopenia', status: 'urgent'},
+        { name: 'Jesús Portillo', clinic: 'Clínica: Falcón', diagnosis: 'Diagnóstico: Hipertensión Pulmonar', status: 'urgent'},
+        { name: 'Diego Torrealba', clinic: 'Clínica: Sucre', diagnosis: 'Diagnóstico: Diabetes', status: 'regular'},
+        { name: 'Claudia Infante', clinic: 'Clínica: Madre Rafols', diagnosis: 'Diagnóstico: Hipertensión', status: 'regular'},
+      ]
+    }
+  },
     methods: {
       Submit () {
         this.loading = true
@@ -77,3 +92,4 @@
     },
   }
 </script>
+

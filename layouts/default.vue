@@ -1,6 +1,6 @@
 <template>
 <v-app>
-    <index />
+    
     <Header /> 
     <Nuxt />
 
@@ -16,4 +16,3 @@
      }
   }
 </script>
-

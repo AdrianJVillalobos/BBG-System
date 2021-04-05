@@ -22,7 +22,7 @@
         text
         
         >
-          <nuxt-link to="/">Dashboard</nuxt-link>
+          <nuxt-link to="/dashboard">Dashboard</nuxt-link>
         </v-btn>
         <v-btn class="btn-link"
         text
@@ -42,18 +42,10 @@
         >
           <nuxt-link to="/urgentCases">Urgent Cases</nuxt-link>
         </v-btn>
-
+        
         <v-spacer></v-spacer>
 
-        <v-responsive max-width="260">
-          <v-text-field
-            dense
-            flat
-            hide-details
-            rounded
-            solo-inverted
-          ></v-text-field>
-        </v-responsive>
+        
       </v-container>
     </v-app-bar>
 </template>

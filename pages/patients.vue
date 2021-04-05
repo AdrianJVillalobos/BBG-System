@@ -1,49 +1,103 @@
 <template>
-  <div >
+  <v-main class="dashboard mx-4 mb-4">
     
-    <v-app-bar app>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-container class="my-15">
 
-      <v-toolbar-title>Application</v-toolbar-title>
-    </v-app-bar>
+      <h1 class="subheading grey--text mb-5">Patients Archive</h1>
 
-    <v-navigation-drawer
-      v-model="drawer"
-      fixed
-      temporary
-    >
-      <!--  -->
-    </v-navigation-drawer>
 
-    <v-main class="#16aac4">
-      <v-container>
-        <v-row>
-          <template v-for="n in 3">
-            <v-col
-              :key="n"
-              class="mt-2"
-              cols="12"
-            >
-              <strong>Category {{ n }}</strong>
-            </v-col>
-
-            <v-col
-              v-for="j in 6"
-              :key="`${n}${j}`"
-              cols="6"
-              md="2"
-            >
-              <v-sheet height="150"></v-sheet>
-            </v-col>
-          </template>
+      <v-row row justify-start class="ml-1 mb-3">
+        <v-tooltip top>
+          <v-btn small text color="grey" @click="sortBy('name')" slot="activator">
+            <v-icon small left >mdi-alphabetical-variant </v-icon>
+            <span class="caption text-lowercase">By patient name</span>
+          </v-btn>
+          <span>Sort by patient name</span>
+        </v-tooltip>
+        <v-tooltip top>
+          <v-btn small text color="grey" @click="sortBy('clinic')" slot="activator">
+            <v-icon small left>mdi-office-building-marker </v-icon>
+            <span class="caption text-lowercase">By Clinic</span>
+          </v-btn>
+          <span>Sort by clinic location</span>
+        </v-tooltip>
+      </v-row>
+      
+      <v-card text v-for="patient in patients" :key="patient.name">
+        <v-row row wrap :class="`ma-0 pa-3 patient ${patient.status}`">
+          <v-flex d-flex flex-column mb-6>
+            <div class="caption grey--text ">Patient name</div>
+            <div>{{ patient.name }}</div>
+          </v-flex>
+          <v-flex xs6 sm4 md2>
+            <div class="caption grey--text ">Clinic</div>
+            <div>{{ patient.clinic }}</div>
+          </v-flex>
+          <v-flex xs6 sm4 md2>
+            <div class="caption grey--text ">Due by</div>
+            <div>{{ patient.entry }}</div>
+          </v-flex>
+          <v-flex xs2 sm4 md2 >
+            
+            <v-chip 
+             small
+             class="right"
+             :color="`${patient.status}`"
+             :class="`${patient.status} white--text my-2 caption`">
+             {{ patient.status }}
+            </v-chip>
+            
+          </v-flex>
         </v-row>
-      </v-container>
-    </v-main>
-  </div>
+        <v-divider></v-divider>
+      </v-card>
+
+    </v-container>
+   
+  </v-main>
 </template>
 
 <script>
-  export default {
-    data: () => ({ drawer: null }),
+export default {
+  data() {
+    return {
+      patients: [
+        { name: 'María Cárdenas', clinic: 'Sagrada Familia', entry: '1st Jan 2019', status: 'regular'},
+        { name: 'Ernesto Gotera', clinic: 'Paraíso', entry: '10th Jan 2019', status: 'checked'},
+        { name: 'Ronald Blanco', clinic: 'Policlínica Maracaibo', entry: '20th Dec 2020', status: 'urgent'},
+        { name: 'Jesús Portillo', clinic: 'Falcón', entry: '20th Feb 2021', status: 'urgent'},
+        { name: 'Diego Torrealba', clinic: 'Sucre', entry: '20th Oct 2018', status: 'regular'},
+        { name: 'Claudia Infante', clinic: 'Madre Rafols', entry: '20th Oct 2018', status: 'regular'},
+      ]
+    }
+  },
+  methods: {
+    sortBy(prop) {
+      this.patients.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
+    }
   }
+}
 </script>
+
+<style >
+
+.patient.checked{
+  border-left: 4px solid #3cd1c2;
+}
+.patient.regular{
+  border-left: 4px solid #ffaa2c;
+}
+.patient.urgent{
+  border-left: 4px solid #f83e70;
+}
+.v-chip.checked {
+  background: #3cd1c2 !important; 
+}
+.v-chip.regular {
+  background: #ffaa2c !important;
+}
+.v-chip.urgent {
+  background: #f83e70 !important;
+}
+
+</style>
